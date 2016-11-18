@@ -1,8 +1,8 @@
 {
-  "name": "Start on Heroku: Python",
-  "description": "A barebones Python app, which can easily be deployed to Heroku.",
+  "name": "Socio Data Automation Server",
+  "description": "A microservice that is used to do everything related event data automation.",
   "image": "heroku/python",
-  "repository": "https://github.com/heroku/python-getting-started",
+  "repository": "https://github.com/jlwatkins/data-automation",
   "keywords": ["python", "django" ],
-  "addons": [ "heroku-postgresql" ]
+  "addons": []
 }
