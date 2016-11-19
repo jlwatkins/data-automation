@@ -18,6 +18,7 @@ import datetime
 from .utils import convert_datetime_string_to_unix_local
 from django.shortcuts import render
 from django.http import HttpResponse
+from .google_drive import main
 
 from openpyxl.chart import (
     PieChart,
@@ -986,7 +987,6 @@ class ExcelBuilder:
                 columns_to_skip = self.worksheet_definitions[title].get('columnsToSkip')
 
             self.set_column_width_to_max(ws, columns_to_skip)
-        print_files_in_folder("./tmp")
         self.wb.save(output_directory + "/" + output_file + ".xlsx")
 
 def perform_data_converstion(request):
@@ -1088,6 +1088,7 @@ def perform_data_converstion(request):
     print_files_in_folder("/tmp")
     excelBuilder.save("/tmp", event["event_name"])
 
+    main()
     print("Completed")
     return HttpResponse('Completed : ' + str(event_id))
 
