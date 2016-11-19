@@ -7,7 +7,7 @@ access_token = 'kSVIwQWSbHMAAAAAAAAL64PmaxHp3J-LHwFp-f0XC9J2nx5Ef_MCNHYGbFAeG2LA
 
 def upload_file_to_dropbox(file_location, filename):
     metadata = None
-    f = open('working-draft.txt', 'rb')
+    f = open(file_location, 'rb')
     dbx = dropbox.Dropbox(access_token)
     dbx.users_get_current_account()
     metadata = dbx.files_upload(f, str(filename))

@@ -1090,8 +1090,9 @@ def perform_data_converstion(request):
     file_location = excelBuilder.save("/tmp", event["event_name"])
     print_files_in_folder("/tmp")
 
-    upload_file_to_dropbox(file_location, event["event_name"])
+    response = upload_file_to_dropbox(file_location, event["event_name"])
     print("Completed: " + str(file_location))
+    print("Response: " + str(response))
 
     return HttpResponse('Completed : ' + str(event_id))
 
