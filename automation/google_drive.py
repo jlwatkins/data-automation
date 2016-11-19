@@ -1,4 +1,3 @@
-from __future__ import print_function
 import httplib2
 import os
 
@@ -54,6 +53,7 @@ def main():
     Creates a Google Drive API service object and outputs the names and IDs
     for up to 10 files.
     """
+    print("Beginning")
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('drive', 'v3', http=http)
