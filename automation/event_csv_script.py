@@ -5,7 +5,7 @@ import csv
 import requests
 import re
 from openpyxl import Workbook
-from openpyxl.cell import get_column_letter
+from openpyxl.utils.cell import get_column_letter
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font, Color, colors
 import openpyxl
 import openpyxl.cell
