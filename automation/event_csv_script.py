@@ -15,7 +15,7 @@ import openpyxl.drawing.image
 import openpyxl.utils.datetime
 import openpyxl.styles.numbers
 import datetime
-from utils import convert_datetime_string_to_unix_local
+from .utils import convert_datetime_string_to_unix_local
 
 
 from openpyxl.chart import (
