@@ -837,7 +837,9 @@ class ExcelBuilder:
                 ws.merge_cells(start_row=int(start_row), start_column=5, end_row=int(start_row) + 2, end_column=9)
 
             self.worksheet_definitions.get(ExcelBuilder.InfluencerTree).get('columnsToSkip').add('F')
-
+            for root, dirs, files in os.walk(".", topdown=True):
+                for name in files:
+                    print("file:" + os.path.join(root, name))
             img = openpyxl.drawing.image.Image('./res/influencer_heat.png', nochangeaspect=False)
             img.drawing.height = 21.3378 * (end - 1)
             img.drawing.width = 112
