@@ -28,6 +28,7 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
+    print("Get Credentials Started")
     home_dir = os.path.expanduser('/tmp')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):

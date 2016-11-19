@@ -18,7 +18,7 @@ import datetime
 from .utils import convert_datetime_string_to_unix_local
 from django.shortcuts import render
 from django.http import HttpResponse
-# from .google_drive import main
+from .google_drive import main
 
 from openpyxl.chart import (
     PieChart,
@@ -1085,8 +1085,8 @@ def perform_data_converstion(request):
     excelBuilder.create_influencer_tree_from_csv(influencer_tree_file, metrics_file, notifications_file)
     excelBuilder.create_platform_demographics_from_csv(platform_demographics_file)
     excelBuilder.create_easy_mailing_list_from_csv(easy_mailing_list_file)
-    print_files_in_folder("/tmp")
     excelBuilder.save("/tmp", event["event_name"])
+    print_files_in_folder("/tmp")
 
     # main()
     print("Completed")
