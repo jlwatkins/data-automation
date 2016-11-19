@@ -990,6 +990,7 @@ class ExcelBuilder:
         self.wb.save(output_directory + "/" + output_file + ".xlsx")
 
 def perform_data_converstion(request):
+    print("Started")
     event_id = 827
     total_connections_doubled = 0
     total_connections_actual = 0
@@ -998,6 +999,7 @@ def perform_data_converstion(request):
     uriBuilder = AccountsUriBuilder()
 
     # Retrieve and Build Data Needed
+    print("Retrieving Data for " + str(event_id))
     api = SocioRestApi()
     event, valid = api.get_event(event_id)
     if not valid:
@@ -1063,7 +1065,7 @@ def perform_data_converstion(request):
         total_connections_doubled += len(filtered_connections)
         total_accounts += len(filtered_connections) * len(accounts)
 
-
+    print("Creating CSVs")
     # Output to CSVs
     csvBuilder = CsvBuilder("./tmp", event["event_name"], user_dict)
     linkedin_info_file = csvBuilder.create_linkedin_info(attendees)
@@ -1075,6 +1077,7 @@ def perform_data_converstion(request):
     platform_demographics_file = csvBuilder.create_platform_demographics(attendees)
     easy_mailing_list_file = csvBuilder.create_easy_mailing_list(attendees)
 
+    print("Creating Excel File")
     # Merge CSVs into an Excel file
     excelBuilder = ExcelBuilder()
     excelBuilder.create_attendee_demographics_from_csv(linkedin_info_file)
