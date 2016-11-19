@@ -18,7 +18,7 @@ import datetime
 from .utils import convert_datetime_string_to_unix_local
 from django.shortcuts import render
 from django.http import HttpResponse
-from .google_drive import main
+# from .google_drive import main
 
 from openpyxl.chart import (
     PieChart,
@@ -1088,7 +1088,7 @@ def perform_data_converstion(request):
     print_files_in_folder("/tmp")
     excelBuilder.save("/tmp", event["event_name"])
 
-    main()
+    # main()
     print("Completed")
     return HttpResponse('Completed : ' + str(event_id))
 
