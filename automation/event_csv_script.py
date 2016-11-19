@@ -16,7 +16,8 @@ import openpyxl.utils.datetime
 import openpyxl.styles.numbers
 import datetime
 from .utils import convert_datetime_string_to_unix_local
-
+from django.shortcuts import render
+from django.http import HttpResponse
 
 from openpyxl.chart import (
     PieChart,
@@ -988,7 +989,8 @@ class ExcelBuilder:
 
         self.wb.save(output_directory + "/" + output_file + ".xlsx")
 
-def perform_data_converstion(event_id):
+def perform_data_converstion(request):
+    event_id = 827
     total_connections_doubled = 0
     total_connections_actual = 0
     total_accounts = 0
@@ -1063,7 +1065,7 @@ def perform_data_converstion(event_id):
 
 
     # Output to CSVs
-    csvBuilder = CsvBuilder("./output", event["event_name"], user_dict)
+    csvBuilder = CsvBuilder("./tmp", event["event_name"], user_dict)
     linkedin_info_file = csvBuilder.create_linkedin_info(attendees)
     complete_contact_list_file = csvBuilder.create_complete_contact_list(attendees)
     influencer_sorter = lambda u: float(1 / len(u['connections'])) if len(u['connections']) != 0 else float(0.0)
@@ -1080,9 +1082,12 @@ def perform_data_converstion(event_id):
     excelBuilder.create_influencer_tree_from_csv(influencer_tree_file, metrics_file, notifications_file)
     excelBuilder.create_platform_demographics_from_csv(platform_demographics_file)
     excelBuilder.create_easy_mailing_list_from_csv(easy_mailing_list_file)
-    excelBuilder.save("./output", event["event_name"])
+    excelBuilder.save("./tmp", event["event_name"])
 
     print("Completed")
+    return HttpResponse('Completed : ' + str(event_id))
+
+
 
 
 if __name__ == "__main__":
