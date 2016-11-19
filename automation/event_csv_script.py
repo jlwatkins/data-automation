@@ -988,10 +988,7 @@ class ExcelBuilder:
 
         self.wb.save(output_directory + "/" + output_file + ".xlsx")
 
-
-if __name__ == "__main__":
-    # Get User Input
-    event_id = int(input("Please enter an event id: "))
+def perform_data_converstion(event_id):
     total_connections_doubled = 0
     total_connections_actual = 0
     total_accounts = 0
@@ -1086,3 +1083,9 @@ if __name__ == "__main__":
     excelBuilder.save("./output", event["event_name"])
 
     print("Completed")
+
+
+if __name__ == "__main__":
+    # Get User Input
+    event_id = int(input("Please enter an event id: "))
+    perform_data_converstion(event_id=event_id)
