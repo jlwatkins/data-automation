@@ -837,9 +837,6 @@ class ExcelBuilder:
                 ws.merge_cells(start_row=int(start_row), start_column=5, end_row=int(start_row) + 2, end_column=9)
 
             self.worksheet_definitions.get(ExcelBuilder.InfluencerTree).get('columnsToSkip').add('F')
-            for root, dirs, files in os.walk("./automation", topdown=True):
-                for name in files:
-                    print("file:" + os.path.join(root, name))
             img = openpyxl.drawing.image.Image('./automation/res/influencer_heat.png', nochangeaspect=False)
             img.drawing.height = 21.3378 * (end - 1)
             img.drawing.width = 112
@@ -988,7 +985,7 @@ class ExcelBuilder:
                 columns_to_skip = self.worksheet_definitions[title].get('columnsToSkip')
 
             self.set_column_width_to_max(ws, columns_to_skip)
-
+        print_files_in_folder("./tmp")
         self.wb.save(output_directory + "/" + output_file + ".xlsx")
 
 def perform_data_converstion(request):
@@ -1087,13 +1084,18 @@ def perform_data_converstion(request):
     excelBuilder.create_influencer_tree_from_csv(influencer_tree_file, metrics_file, notifications_file)
     excelBuilder.create_platform_demographics_from_csv(platform_demographics_file)
     excelBuilder.create_easy_mailing_list_from_csv(easy_mailing_list_file)
+    print_files_in_folder("./tmp")
     excelBuilder.save("./tmp", event["event_name"])
 
     print("Completed")
     return HttpResponse('Completed : ' + str(event_id))
 
 
-
+def print_files_in_folder(folder):
+    print("Folder: " + str(folder))
+    for root, dirs, files in os.walk(folder, topdown=True):
+        for name in files:
+            print("\t" + os.path.join(root, name))
 
 if __name__ == "__main__":
     # Get User Input
