@@ -1066,7 +1066,7 @@ def perform_data_converstion(request):
 
     print("Creating CSVs")
     # Output to CSVs
-    csvBuilder = CsvBuilder("./tmp", event["event_name"], user_dict)
+    csvBuilder = CsvBuilder("/tmp", event["event_name"], user_dict)
     linkedin_info_file = csvBuilder.create_linkedin_info(attendees)
     complete_contact_list_file = csvBuilder.create_complete_contact_list(attendees)
     influencer_sorter = lambda u: float(1 / len(u['connections'])) if len(u['connections']) != 0 else float(0.0)
@@ -1084,8 +1084,8 @@ def perform_data_converstion(request):
     excelBuilder.create_influencer_tree_from_csv(influencer_tree_file, metrics_file, notifications_file)
     excelBuilder.create_platform_demographics_from_csv(platform_demographics_file)
     excelBuilder.create_easy_mailing_list_from_csv(easy_mailing_list_file)
-    print_files_in_folder("./tmp")
-    excelBuilder.save("./tmp", event["event_name"])
+    print_files_in_folder("/tmp")
+    excelBuilder.save("/tmp", event["event_name"])
 
     print("Completed")
     return HttpResponse('Completed : ' + str(event_id))
