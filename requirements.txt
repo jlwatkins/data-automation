@@ -9,4 +9,4 @@ psycopg2==2.6.1
 openpyxl==2.4.0
 requests==2.12.1
 Pillow==3.1.2
-google-api-python-client
+dropbox

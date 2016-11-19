@@ -18,7 +18,7 @@ import datetime
 from .utils import convert_datetime_string_to_unix_local
 from django.shortcuts import render
 from django.http import HttpResponse
-from .google_drive import main
+from .dropbox_helper import upload_file_to_dropbox
 
 from openpyxl.chart import (
     PieChart,
@@ -977,6 +977,7 @@ class ExcelBuilder:
         os.remove(csv_file_location)
 
     def save(self, output_directory, output_file):
+        file = output_directory + "/" + output_file + ".xlsx"
         for title, ws in self.worksheets.items():
             if not isinstance(ws, openpyxl.worksheet.Worksheet):
                 print("Error: Not a workbook: " + str(ws))
@@ -987,7 +988,8 @@ class ExcelBuilder:
                 columns_to_skip = self.worksheet_definitions[title].get('columnsToSkip')
 
             self.set_column_width_to_max(ws, columns_to_skip)
-        self.wb.save(output_directory + "/" + output_file + ".xlsx")
+        self.wb.save(file)
+        return file
 
 def perform_data_converstion(request):
     print("Started")
@@ -1085,11 +1087,12 @@ def perform_data_converstion(request):
     excelBuilder.create_influencer_tree_from_csv(influencer_tree_file, metrics_file, notifications_file)
     excelBuilder.create_platform_demographics_from_csv(platform_demographics_file)
     excelBuilder.create_easy_mailing_list_from_csv(easy_mailing_list_file)
-    excelBuilder.save("/tmp", event["event_name"])
+    file_location = excelBuilder.save("/tmp", event["event_name"])
     print_files_in_folder("/tmp")
 
-    # main()
-    print("Completed")
+    upload_file_to_dropbox(file_location, event["event_name"])
+    print("Completed: " + str(file_location))
+
     return HttpResponse('Completed : ' + str(event_id))
 
 
