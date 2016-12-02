@@ -379,7 +379,7 @@ class AccountsUriBuilder:
                 'regex_group': 5
             },
             'Website': {
-                'insert_string': 'http://www.{i}',
+                'insert_string': 'http://{i}',
                 'regex_string': r'^(https?:\/\/)?((www\.)?[^\s]+\.[^\s]+)$',
                 'regex_group': 2
             },
@@ -992,8 +992,9 @@ class ExcelBuilder:
         return file
 
 def perform_data_converstion(request):
+    event_id = request.GET("id")
     print("Started")
-    event_id = 827
+
     total_connections_doubled = 0
     total_connections_actual = 0
     total_accounts = 0
