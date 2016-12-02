@@ -145,7 +145,6 @@ class CsvBuilder:
     def create_linkedin_info(self, users, key=None):
         if key is None:
             key = self.sorting_key
-        location_regex = re.compile('name=\"([\w\/,\s]+)\"')
         output_lines = str()
 
         output_lines += "Attendee Name,Last Name,Industry,Position,Company,Location,Number of LI connections,Headline" + "\n"
@@ -161,7 +160,7 @@ class CsvBuilder:
                 num_connections = "500+"
             position = li_info['position'] if 'position' in li_info and li_info['position'] is not None else 'N/A'
             if(location is not 'N/A'):
-                location = location_regex.search(location).group(1)
+                location = location.strip()
             try:
                 ordered = csv_clean(u['first_name']), csv_clean(u['last_name']), csv_clean(industry),csv_clean(position),csv_clean(company),csv_clean(location), csv_clean(num_connections), csv_clean(headline)
             except AttributeError:
