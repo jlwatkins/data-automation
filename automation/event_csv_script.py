@@ -992,8 +992,8 @@ class ExcelBuilder:
         return file
 
 def perform_data_converstion(request):
-    event_id = request.GET["id"]
-    print("Started")
+    event_id = int(request.GET["id"])
+    print("Started with " + str(event_id))
 
     total_connections_doubled = 0
     total_connections_actual = 0
